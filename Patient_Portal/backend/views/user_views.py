@@ -59,7 +59,6 @@ def create_user(request):
     first_name = request.data.get("first_name")
     last_name  = request.data.get("last_name")
     phone_number = request.data.get("phone_number")
-    pin = request.data.get("pin")
     specialty = request.data.get("specialty")
 
     if request.method == 'POST':
@@ -69,11 +68,11 @@ def create_user(request):
 
             # Create the corresponding profile based on the user's role
             if user.role == 'PATIENT':
-                Patient.objects.create(user_id=user, first_name=first_name, last_name=last_name, phone_number=phone_number, pin=pin)
+                Patient.objects.create(user_id=user, first_name=first_name, last_name=last_name, phone_number=phone_number)
             elif user.role == 'PROVIDER':
-                Provider.objects.create(user_id=user, first_name=first_name, last_name=last_name, pin=pin,specialty=specialty)
+                Provider.objects.create(user_id=user, first_name=first_name, last_name=last_name,specialty=specialty)
             elif user.role == 'SCHEDULER':
-                Scheduler.objects.create(user_id=user, first_name=first_name, last_name=last_name, pin=pin)
+                Scheduler.objects.create(user_id=user, first_name=first_name, last_name=last_name)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
@@ -84,7 +83,6 @@ def update_user(request, user_id):
     first_name = request.data.get("first_name")
     last_name  = request.data.get("last_name")
     phone_number = request.data.get("phone_number")
-    pin = request.data.get("pin")
     specialty = request.data.get("specialty")
 
     try:
@@ -102,20 +100,17 @@ def update_user(request, user_id):
                 patient.first_name = first_name
                 patient.last_name = last_name
                 patient.phone_number = phone_number
-                patient.pin = pin
                 patient.save()
             elif user.role == 'PROVIDER':
                 provider = Provider.objects.get(user_id=user)
                 provider.first_name = first_name
                 provider.last_name = last_name
-                provider.pin = pin
                 provider.specialty = specialty
                 provider.save()
             elif user.role == 'SCHEDULER':
                 scheduler = Scheduler.objects.get(user_id=user)
                 scheduler.first_name = first_name
                 scheduler.last_name = last_name
-                scheduler.pin = pin
                 scheduler.save()
 
             return Response(serializer.data)

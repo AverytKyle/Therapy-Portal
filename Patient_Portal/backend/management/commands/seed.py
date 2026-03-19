@@ -64,6 +64,7 @@ class Command(BaseCommand):
                     username=username,
                     email=f"{username}@clinic.com",
                     password=make_password("password123"),
+                    pin=123456,
                     role="SCHEDULER",
                 )
 
@@ -71,7 +72,6 @@ class Command(BaseCommand):
                     user_id=user,
                     first_name=fake.first_name(),
                     last_name=fake.last_name(),
-                    pin=123456
                 )
 
                 schedulers.append(scheduler)
@@ -93,6 +93,7 @@ class Command(BaseCommand):
                     username=username,
                     email=f"{username}@clinic.com",
                     password=make_password("password123"),
+                    pin=123456,
                     role="PROVIDER",
                 )
 
@@ -101,7 +102,6 @@ class Command(BaseCommand):
                     first_name=fake.first_name(),
                     last_name=fake.last_name(),
                     specialty="Chiropractor",
-                    pin=123456
                 )
 
                 providers.append(provider)
@@ -123,6 +123,7 @@ class Command(BaseCommand):
                     username=username,
                     email=f"{username}@clinic.com",
                     password=make_password("password123"),
+                    pin=123456,
                     role="PATIENT",
                 )
 
@@ -131,7 +132,6 @@ class Command(BaseCommand):
                     first_name=fake.first_name(),
                     last_name=fake.last_name(),
                     phone_number=fake.phone_number(),
-                    pin=123456
                 )
 
                 patients.append(patient)
